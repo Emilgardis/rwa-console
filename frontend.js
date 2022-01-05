@@ -12,6 +12,7 @@ Widget.register("rwa-console", function (widget) {
 
     var receivedServerMessages = [];
     var searchTimeout = null;
+    var filters = [];
 
     /**
      * Show the raw server log files modal window
@@ -64,10 +65,14 @@ Widget.register("rwa-console", function (widget) {
      */
     var addMessage = function (messageData) {
         var cl = "";
+        debugger;
         if (widget.options.get("hideUserCommands") && (messageData.user)) {
             cl = "collapsed";
         } else if (widget.serverData.game == "rust" && messageData.type === 4 && !widget.options.get("allLogs")) {
             // for rust ignore all messages with the log flag
+            return false;
+        } else if (filters.some(rx => rx.test(messageData.body))) {
+            // If matches any filter, ignore it
             return false;
         }
         cl += " logtype-" + messageData.type;
@@ -113,6 +118,14 @@ Widget.register("rwa-console", function (widget) {
             if (!receivedServerMessages[j]) continue;
             addMessage(receivedServerMessages[j]);
         }
+    };
+
+    var setFilters = function () {
+        filters = [];
+        widget.options.get("filters").split(/\r?\n/)
+        .forEach(/** @param filter: string */ function (filter) {
+            filters.push(new RegExp(filter));
+        })
     };
 
     /**
@@ -259,6 +272,7 @@ Widget.register("rwa-console", function (widget) {
             receivedServerMessages.push(message);
             addMessage(message);
         });
+        setFilters();
     };
 
     /**
@@ -268,5 +282,6 @@ Widget.register("rwa-console", function (widget) {
      */
     widget.onOptionUpdate = function (key, value) {
         reloadServerLog();
+        setFilters();
     };
 });

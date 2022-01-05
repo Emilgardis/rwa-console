@@ -11,6 +11,10 @@
     "allLogs": {
       "type": "switch",
       "default": false
+    },
+    "filters": {
+      "type": "textarea",
+      "default": "Keep Alive"
     }
   },
   "locale": {
@@ -21,6 +25,8 @@
       "autoscroll.disabled": "Manual scroll",
       "option.allLogs.title": "Show all logs",
       "option.allLogs.info": "If enabled than all logs are shown in the console. Otherwise all verbose logs will be filtered.",
+      "option.filters.title": "Regex entries to filter away",
+      "option.filters.info": "Enter one regex entry per line. Any message that matches these will be muted from the console.",
       "input.search": "Search in the rcon console log",
       "input.cmd": "Execute a rcon command, press enter",
       "list.commands": "List of all commands and variables",
