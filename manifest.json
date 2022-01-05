@@ -1,7 +1,7 @@
 {
   "id": "rwa-console",
-  "repository": "brainfoolong/rwa-console",
-  "version": "0.10.1",
+  "repository": "emilgardis/rwa-console",
+  "version": "0.11.0",
   "compatibleGames": "all",
   "compatibleSizes": [
     "large",
