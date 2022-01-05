@@ -154,7 +154,7 @@ Widget.register("rwa-console", function (widget) {
             }
             if (ev.keyCode == 13) {
                 widget.cmd(this.value);
-                cmdEl.find("input").blur();
+                cmdEl.find("input");
                 this.value = "";
             }
         });
